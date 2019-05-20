@@ -22,6 +22,6 @@ export default function template(helmet, content = '') {
                    </div>
                 </div>
                 ${scripts}
-              </body>`
+              </body>`;
     return page
 }

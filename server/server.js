@@ -8,19 +8,19 @@ import template from './template'
 
 export default function render(url) {
 
-    //Объект хранит в себе результат рендера
-    const reactRouterContext = {}
+    // Object holds render result
+    const reactRouterContext = {};
 
-    // Превращаем контент в строку HTML
+    // Make HTML string from content
     let content = renderToString(
         <StaticRouter location={url} context={reactRouterContext}>
             <App/>
         </StaticRouter>
     );
 
-    // Достаем <head> из HTML-строки
-    const helmet = Helmet.renderStatic()
+    // Get <HEAD> from HTML string
+    const helmet = Helmet.renderStatic();
 
-    //Передаем контент в HTML-шаблон и возвращаем сгенерированную страницу
+    // Render final page with all data
     return template(helmet, content)
 }

@@ -26,11 +26,6 @@ mongoose.connect(MONGODB, {
 require('./server/models/ProjectModel');
 require('./server/routes/project_route')(app);
 
-app.get('/proect', function(req, res) {
-    res.send('hello world');
-});
-
-
 // Обрабатываем статичные файлы
 app.use(express.static('public'));
 app.use('/assets', express.static(path.resolve(__dirname, 'assets')))

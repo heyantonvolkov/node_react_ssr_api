@@ -45,16 +45,15 @@ const createProject = async (name, desc) => {
 };
 
 const updateProject = async (oldName, newName, newDesc) => {
-    const project = await project_dao.updateProject(oldName, newName, newDesc);
-    console.log('AFTER DAO', project);
-    if (!project) {
+    const project = await project_dao.getProjectByName(oldName);
+    if (!project){
         return {
-            isError: true,
-            error: 'UNKNOWN_EXEPTION'
+            error: 'No Project Like This in a DataBase'
         }
-    } else {
-        return project;
     }
+
+    const result = await project_dao.updateProject(project, newName, newDesc);
+    return project;
 };
 
 const deleteProject = async (name) => {

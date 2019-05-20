@@ -3,31 +3,29 @@ const ProjectModel = mongoose.model("ProjectModel");
 
 const createProject = async (name, desc) => {
     const project = new ProjectModel({
-        "name": name,
-        "desc": desc
+        name: name,
+        desc: desc
     });
     return await project.save();
 };
 
 const getProjectByName = async (name) => {
-    return await ProjectModel.findOne({"name": name});
+    return await ProjectModel.findOne({name: name});
 };
 
 const getAllProjects = async () => {
     return await ProjectModel.find();
 };
 
-const deleteProject = async (name) => {
-    return await ProjectModel.findOneAndRemove({"name": name},
-        {useFindAndModify: false});
+const deleteProject = async (project) => {
+    return await project.remove();
 };
 
-const updateProject = async (oldName, newName, newDesc) => {
-    return await ProjectModel.findOneAndUpdate(
-        {name: oldName},
-        {$set: {name: newName, desc: newDesc}},
-        {useFindAndModify: false, new: true}
-    )
+const updateProject = async (project, newName, newDesc) => {
+    project.name = newName;
+    project.desc = newDesc;
+
+    return await project.save();
 };
 
 module.exports = {
