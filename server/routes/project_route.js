@@ -1,9 +1,17 @@
 module.exports = (app) => {
     const project_controller = require('../controllers/project_controller');
+    
+    const multer = require("multer");
+    const upload = multer({
+        dest: "./uploads"
+    });
 
-    app.route('/api/project')
-        .post(async (req, res, next) => {
+    app.post('/api/project', upload.single("image") , async (req, res, next) => {
+            console.log(req.file);
+
             let response = await project_controller.createProject(req.body.name, req.body.desc);
+
+            console.log(response);
 
             if (!response.isError) {
                 res.json({
